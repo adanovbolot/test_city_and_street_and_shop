@@ -1,5 +1,4 @@
 from django.db import models
-from rest_framework.reverse import reverse
 
 
 class City(models.Model):
@@ -14,7 +13,7 @@ class City(models.Model):
         return self.name
 
 
-class Address(models.Model):
+class Street(models.Model):
     class Meta:
         verbose_name = "Улица"
         verbose_name_plural = "Улицы"
@@ -34,12 +33,12 @@ class Shop(models.Model):
         ordering = ('name',)
 
     name = models.CharField('Название', max_length=50)
-    city = models.ForeignKey(City, on_delete=models.CASCADE, verbose_name='Город')
-    address = models.ForeignKey(Address, on_delete=models.CASCADE, verbose_name='Улица')
+    city = models.ForeignKey(City, on_delete=models.CASCADE, verbose_name='Город', related_name='city_shop')
+    street = models.ForeignKey(Street, on_delete=models.CASCADE, verbose_name='Улица', related_name='address_shop')
     home = models.CharField('Дом', max_length=50)
-    opening_time = models.TimeField('Время открытия')
-    closing_time = models.TimeField('Время закрытия')
+    opening_time = models.TimeField(verbose_name='Время открытия')
+    closing_time = models.TimeField(verbose_name='Время закрытия')
 
     def __str__(self):
         return f"Название: {self.name}" \
-               f"Адресс: {self.address}"
+               f"Адресс: {self.street}"

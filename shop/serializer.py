@@ -1,19 +1,19 @@
 from rest_framework import serializers
-from .models import Shop, Address, City
+from .models import Shop, Street, City
 
 
 class AddressSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Address
-        fields = '__all__'
+        model = Street
+        fields = ('name',)
 
 
 class CitySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = City
-        fields = ('id', 'name')
+        fields = ('name',)
 
 
 class CityAddressSerializer(serializers.ModelSerializer):
@@ -25,7 +25,9 @@ class CityAddressSerializer(serializers.ModelSerializer):
 
 
 class ShopSerializer(serializers.ModelSerializer):
+    city = CitySerializer()
+    street = AddressSerializer()
 
     class Meta:
         model = Shop
-        fields = ('id', 'name', 'city', 'address', 'home', 'opening_time', 'closing_time')
+        fields = ('name', 'city', 'street', 'home', 'opening_time', 'closing_time')
