@@ -1,8 +1,8 @@
 from rest_framework import serializers
-from .models import Shop, Address, City, CityAndStreet
+from .models import Shop, Address, City
 
 
-class AddressSerializer(serializers.HyperlinkedModelSerializer):
+class AddressSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Address
@@ -17,8 +17,8 @@ class CitySerializer(serializers.ModelSerializer):
 
 
 class CityAddressSerializer(serializers.ModelSerializer):
-    address_rel = AddressSerializer(many=True)
+    address = AddressSerializer()
 
     class Meta:
         model = City
-        fields = ('name',)
+        fields = "__all__"

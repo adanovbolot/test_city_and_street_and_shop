@@ -1,18 +1,6 @@
 from django.db import models
 
 
-class City(models.Model):
-    class Meta:
-        verbose_name = "Город"
-        verbose_name_plural = "Город"
-        ordering = ('name',)
-
-    name = models.CharField('Название', max_length=50)
-
-    def __str__(self):
-        return self.name
-
-
 class Address(models.Model):
     class Meta:
         verbose_name = "Улица"
@@ -20,15 +8,22 @@ class Address(models.Model):
         ordering = ('name',)
 
     name = models.CharField('Название', max_length=50)
-    address = models.ForeignKey(City, on_delete=models.CASCADE, verbose_name='Город')
 
     def __str__(self):
         return self.name
 
 
-class CityAndStreet(models.Model):
-    address_f = models.ForeignKey(Address, on_delete=models.CASCADE, verbose_name='Адрес', related_name='address_rel')
-    city_f = models.ForeignKey(City, on_delete=models.CASCADE, verbose_name='Город', related_name='city_rel')
+class City(models.Model):
+    class Meta:
+        verbose_name = "Город"
+        verbose_name_plural = "Город"
+        ordering = ('name',)
+
+    name = models.CharField('Название', max_length=50)
+    address = models.ForeignKey(Address, on_delete=models.CASCADE, verbose_name='Город', related_name='address_rel')
+
+    def __str__(self):
+        return self.name
 
 
 class Shop(models.Model):

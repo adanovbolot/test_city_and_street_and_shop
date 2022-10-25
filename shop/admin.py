@@ -1,10 +1,5 @@
 from django.contrib import admin
-from .models import Address, Shop, City, CityAndStreet
-
-
-class CityAndStreetInline(admin.TabularInline):
-    model = CityAndStreet
-    extra = 0
+from .models import Address, Shop, City
 
 
 class ShopAdmin(admin.ModelAdmin):
@@ -13,10 +8,6 @@ class ShopAdmin(admin.ModelAdmin):
     search_fields = ['name', 'city', 'address']
 
 
-class CityAdmin(admin.ModelAdmin):
-    inlines = [CityAndStreetInline]
-
-
 admin.site.register(Shop, ShopAdmin)
 admin.site.register(Address)
-admin.site.register(City, CityAdmin)
+admin.site.register(City)

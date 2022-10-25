@@ -36,7 +36,7 @@ class CityList(generics.ListAPIView):
 
 class CityDetailStreet(generics.RetrieveAPIView):
     queryset = City.objects.all()
-    serializer_class = CitySerializer
+    serializer_class = CityAddressSerializer
     permission_classes = [IsAdminUser]
 
     def detail(self, request):
@@ -46,3 +46,4 @@ class CityDetailStreet(generics.RetrieveAPIView):
             return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response(serializer.data, status=status.HTTP_200_OK)
+
