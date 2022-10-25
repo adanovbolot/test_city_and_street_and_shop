@@ -1,5 +1,5 @@
-from .serializer import CitySerializer, CityAddressSerializer
-from .models import City
+from .serializer import CitySerializer, CityAddressSerializer, ShopSerializer
+from .models import City, Shop
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import generics
@@ -47,3 +47,13 @@ class CityDetailStreet(generics.RetrieveAPIView):
         else:
             return Response(serializer.data, status=status.HTTP_200_OK)
 
+
+class ShopViewCreate(generics.ListCreateAPIView):
+    queryset = Shop.objects.all()
+    serializer_class = ShopSerializer
+    permission_classes = [IsAdminUser]
+
+    def get_obj_id(self):
+        queryset = Shop.objects.filter(id=self.request.id)
+        serializer = ShopSerializer(queryset, many=True)
+        return Response(serializer.data)

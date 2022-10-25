@@ -13,12 +13,19 @@ class CitySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = City
-        fields = ('name',)
+        fields = ('id', 'name')
 
 
 class CityAddressSerializer(serializers.ModelSerializer):
-    address = AddressSerializer()
+    address_rel = AddressSerializer(many=True)
 
     class Meta:
         model = City
-        fields = "__all__"
+        fields = ('id', 'name', 'address_rel')
+
+
+class ShopSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Shop
+        fields = ('id', 'name', 'city', 'address', 'home', 'opening_time', 'closing_time')

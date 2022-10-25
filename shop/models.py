@@ -1,16 +1,5 @@
 from django.db import models
-
-
-class Address(models.Model):
-    class Meta:
-        verbose_name = "Улица"
-        verbose_name_plural = "Улицы"
-        ordering = ('name',)
-
-    name = models.CharField('Название', max_length=50)
-
-    def __str__(self):
-        return self.name
+from rest_framework.reverse import reverse
 
 
 class City(models.Model):
@@ -20,7 +9,19 @@ class City(models.Model):
         ordering = ('name',)
 
     name = models.CharField('Название', max_length=50)
-    address = models.ForeignKey(Address, on_delete=models.CASCADE, verbose_name='Город', related_name='address_rel')
+
+    def __str__(self):
+        return self.name
+
+
+class Address(models.Model):
+    class Meta:
+        verbose_name = "Улица"
+        verbose_name_plural = "Улицы"
+        ordering = ('name',)
+
+    name = models.CharField('Название', max_length=50)
+    city = models.ForeignKey(City, verbose_name='Улица', on_delete=models.CASCADE, related_name='address_rel')
 
     def __str__(self):
         return self.name
