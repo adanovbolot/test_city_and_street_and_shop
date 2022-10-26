@@ -19,7 +19,8 @@ DEPENDENCIES_DJANGO = [
 ]
 
 DEPENDENCIES = [
-    'rest_framework'
+    'rest_framework',
+    'django_filters'
 ]
 
 START_APP = [
@@ -68,8 +69,8 @@ DATABASES = {
         'NAME': 'myproject',
         'USER': 'myprojectuser',
         'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '',
+        'HOST': 'db',
+        'PORT': '5432',
     }
 }
 
